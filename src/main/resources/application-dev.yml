@@ -1,0 +1,29 @@
+#开发环境
+spring:
+#  数据库连接配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/blog?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: root
+    password: root
+    #JPA相关配置简化了与数据库相关的所有操作
+  jpa:
+    hibernate:
+#      每次更新后，进行自动的数据库映射
+      ddl-auto: update
+#      控制日志输出在控制台
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+
+#配置日志
+logging:
+  level:
+#    日志级别
+    root: info
+#    定义自己的包的级别
+    com.wzl: info
+#    指定文件夹生成日志
+  file: log/blog-dev.log
+
+
+

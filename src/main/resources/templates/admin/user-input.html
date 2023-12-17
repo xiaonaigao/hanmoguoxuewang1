@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale-1.0">
+		<title>修改用户信息</title>
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css'>
+		<link rel="stylesheet" href="../../static/css/semantic.min.css" th:href="@{/css/semantic.min.css}">
+		<link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
+		<link rel="stylesheet" href="../../static/css/me.css"  th:href="@{/css/me.css}">
+	</head>
+	<body>
+		<!--导航部分-->
+		<nav class="ui inverted attached segment  m-padded-tb-mini ">
+			<div class="ui container">
+				<div class="ui inverted secondary stackable menu">
+					<h2 class="ui teal header item">后台管理 </h2>
+					<a href="blogs.html" th:href="@{/admin/blogs}" class=" m-item item m-mobile-hide"><i class="home icon"></i>文章管理</a>
+					<a href="types.html" th:href="@{/admin/types}" class=" m-item item m-mobile-hide"><i class="idea icon"></i>分类管理</a>
+					<a href="tags.html" th:href="@{/admin/tags}" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签管理</a>
+					<a href="#" th:href="@{/admin/comment}"class=" m-item item m-mobile-hide"><i class="book icon"></i>留言管理</a>
+					<a href="#" th:href="@{/admin/user}" class="active m-item item m-mobile-hide"><i class="user icon"></i>用户管理</a>
+					<div class="right m-item  m-mobile-hide menu">
+						<div class="ui dropdown item">
+							<div class="text">
+								<img class="ui avatar image" src="../../static/images/ad_tx1.jpg" th:src="@{${session.user.avatar}}">
+								<span th:text="${session.user.nickname}">管理员001</span>
+							</div>
+							<i class="dropdown icon"></i>
+							<div class="menu">
+								<a href="#" th:href="@{/admin/logout}"  class="item">退出</a>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+				<i class="sidebar icon"></i>菜单
+			</a>
+		</nav>
+
+
+
+		<!--中间部分-->
+		<!--中间部分-->
+		<div class="m-container-small m-padded-tb-big m-padded-tb-massive ">
+			<div class="ui container">
+				<form action="#" method="post" th:object="${user}" th:action="*{id}==null ? @{/admin/user} : @{/admin/user/{id}(id=*{id})} " class="ui form">
+					<input type="hidden" name="id" th:value="*{id}">
+					<div class="two fields">
+						<div class="field">
+							<div class="ui left labeled input">
+								<label class="ui teal basic label">
+									用户名
+								</label>
+								<input type="text" name="username" readonly="true" placeholder="用户名" th:value="*{username}">
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui left labeled input">
+								<label class="ui teal basic label">
+									密码
+								</label>
+								<input type="text" name="password" placeholder="密码" th:value="*{password}">
+							</div>
+						</div>
+					</div>
+					<div class="two fields">
+						<div class="field">
+							<div class="ui left labeled input">
+								<label class="ui teal basic label">
+									昵称
+								</label>
+								<input type="text" name="nickname" placeholder="昵称" th:value="*{nickname}">
+							</div>
+						</div>
+						<div class="field">
+							<div class="ui left labeled input">
+								<label class="ui teal basic label">
+									邮箱
+								</label>
+								<input type="text" name="email" placeholder="邮箱" th:value="*{email}">
+							</div>
+						</div>
+					</div>
+
+
+
+					<!-- 声明标签 -->
+
+
+					<!-- 保存，发布按钮 -->
+					<div class="ui right aligned container">
+						<button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+						<button class="ui teal submit button">提交</button>
+					</div>
+
+				</form>
+
+
+			</div>
+
+
+		</div>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+
+		<!--底层部分-->
+		<footer class="ui inverted vertical segment m-padded-tb-massive">
+			<div class="ui center aligned container">
+				<div class="ui inverted divided  stackable  grid">
+					<div class="three wide column">
+						<div class="ui inverted link list">
+							<div class="item">
+								<img src="../../static/images/bottomlogo.jpg" th:src="@{/images/bottomlogo.jpg}" class="ui rounded image" alt=""
+									style="width: 110px">
+							</div>
+
+						</div>
+					</div>
+					<div class="three wide column">
+						<h4 class="ui inverted  m-text-thin  m-text-spaced">好文推荐</h4>
+						<div class="ui inverted link list">
+							<a href="#" class="item">国学的好处</a>
+							<a href="#" class="item">传统文化对我们的影响</a>
+							<a href="#" class="item">古诗文的风采</a>
+						</div>
+					</div>
+					<div class="three wide column">
+						<h4 class="ui inverted m-text-thin  m-text-spaced">联系我们</h4>
+						<div class="ui inverted link list">
+							<a href="#" class="item">地址：西安市雁塔区西安文理学院</a>
+							<a href="#" class="item"></a>
+							<a href="#" class="item">电话：028-6015896</a>
+						</div>
+					</div>
+					<div class="seven wide column">
+						<h4 class="ui inverted m-text-thin  m-text-spaced">网站分享</h4>
+						<br>
+						<button class="ui circular facebook icon button">
+							<i class="facebook icon"></i>
+						</button>
+						<button class="ui circular twitter icon button">
+							<i class="qq icon"></i>
+						</button>
+						<button class="ui circular linkedin icon button">
+							<i class="wechat icon"></i>
+						</button>
+						<button class="ui circular google plus icon button">
+							<i class="weibo plus icon"></i>
+						</button>
+					</div>
+				</div>
+				<div class="ui inverted section divider">
+					<br><br>
+					<p class="m-text-thin m-opacity-mini m-text-spaced m-text-size"> Copyright © 2022-至今 Designed by 王志磊
+					</p>
+				</div>
+			</div>
+
+		</footer>
+
+		<!--		<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>-->
+		<!--		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>-->
+		<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+		<script src="../static/js/semantic.min.js" th:src="@{/js/semantic.min.js}"></script>
+		<script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+
+		<script>
+			// 文本编辑器
+			var contentEditor;
+			$(function() {
+			    contentEditor = editormd("md-content", {
+			        width   : "100%",
+			        height  : 640,
+			        syncScrolling : "single",
+			      // path    : "../../static/lib/editormd/lib/"
+					path    : "/lib/editormd/lib/"
+			    });
+			});
+			
+			
+			$('.menu.toggle').click(function() {
+				$('.m-item').toggleClass('m-mobile-hide');
+			});
+			// 头像下拉菜单
+			$('.ui.dropdown').dropdown({
+				on: 'hover'
+			});
+
+
+			$('#save-btn').click(function () {
+				$('[name="published"]').val(false);
+				$('#blog-form').submit();
+			});
+
+
+
+			$('#publish-btn').click(function () {
+				$('[name="published"]').val(true);
+				$('#blog-form').submit();
+			});
+
+			//后台表单的验证，不能为空的
+			$('.ui.form').form({
+				fields: {
+					nickname: {
+						identifier: 'nickname',
+						rules: [{
+								type: 'empty',
+								prompt: '昵称不能为空'
+							}
+
+						]
+					},
+					email : {
+						identifier: 'email',
+						rules: [{
+							type : 'email',
+							prompt: '邮箱格式不正确'
+						}]
+					},
+					email : {
+						identifier: 'email',
+						rules: [{
+							type : 'empty',
+							prompt: '邮箱不能为空'
+						}]
+					},
+					firstPicture : {
+						identifier: 'firstPicture',
+						rules: [{
+							type : 'empty',
+							prompt: '首图未添加，请添加'
+						}]
+					},
+					description : {
+						identifier: 'description',
+						rules: [{
+							type : 'empty',
+							prompt: '提醒：请输入博客描述'
+						}]
+					}
+				}
+			});
+		</script>
+
+	</body>
+</html>

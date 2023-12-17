@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale-1.0">
+		<title>标签</title>
+		<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/icon.min.css'>
+		<link rel="stylesheet" href="../static/css/semantic.min.css" th:href="@{/css/semantic.min.css}">
+		<link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+	</head>
+	<body>
+		<!--导航部分-->
+		<nav class="ui inverted attached segment  m-padded-tb-mini ">
+			<div class="ui container">
+				<div class="ui inverted secondary stackable menu">
+					<h2 class="ui teal header item">翰墨GUOXUE </h2>
+					<a href="#" th:href="@{/}"  class="m-item item m-mobile-hide" ><i class="home icon"></i>首页</a>
+					<a href="#" th:href="@{/types/-1}"   class="m-item item m-mobile-hide" ><i class="idea icon"></i>分类</a>
+					<a href="#"  th:href="@{/tags/-1}"  class="active m-item item m-mobile-hide" ><i class="tags icon"></i>标签</a>
+					<a href="#" th:href="@{/archives}"  class="m-item item m-mobile-hide" ><i class="clone icon"></i>归档</a>
+					<a href="#" th:href="@{/about}"   class="m-item item m-mobile-hide" ><i class="info icon"></i>关于</a>
+					<div class="m-item middle item  m-mobile-hide">
+						<form name="search" action="#" th:action="@{/search}" method="post" target="_blank">
+							<div class="ui icon input">
+								<input type="text" name="query" placeholder="搜索"th:value="${query}">
+								<i onclick="document.forms['search'].submit()" class="search link icon"></i>
+							</div>
+						</form>
+					</div>
+					<div class="m-item middle item  m-mobile-hide" th:if="${session.user}==null">
+						<a href="#" th:href="@{user/login}"> <i class="user icon"></i>登录</a>
+					</div>
+					<div class="right m-item  m-mobile-hide menu" th:if="${session.user}!=null">
+						<div class="ui dropdown item">
+							<div class="text">
+								<img class="ui avatar image" src="../../static/images/ad_tx1.jpg" th:src="@{${session.user.avatar}}">
+								<span th:text="${session.user.nickname}">管理员001</span>
+							</div>
+							<i class="dropdown icon"></i>
+							<div class="menu">
+								<a href="#"  th:href="@{/favorite}" class="item">我的收藏</a>
+								<a href="#" th:href="@{/user/logout}" class="item">退出</a>
+
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+			<a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+				<i class="sidebar icon"></i>菜单
+			</a>
+		</nav>
+
+		<!--中间部分-->
+		<div class="m-container-small m-padded-tb-big ">
+			
+		<div class="ui container">
+			
+			<div class="ui top attached segment">
+				<div class="ui middle aligned two column grid">
+					<div class="column">
+						<h3 class="ui teal header">标签</h3>
+					</div>
+					<div class="right aligned column">
+						共<h2 class="ui orange header m-inline-block" th:text="${#arrays.length(tags)}"> &nbsp;16&nbsp;</h2>个
+					</div>
+				</div>
+			</div>
+			
+			<div class="ui  attached segment m-padded-tb-large">
+			<a href="#" th:href="@{/tags/{id}(id=${tag.id})}" class="ui  basic left pointing large label m-margin-tb-tiny" th:classappend="${tag.id==activeTagId} ? 'teal'" th:each="tag : ${tags}">
+				<span th:text="${tag.name}">国学</span><div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
+			</a>
+			</div>
+			
+			<div class="ui teal attached segment">
+				<div class="ui padded vertical segment" th:each="blog : ${page.content}">
+					<div class="ui middle aligned mobile reversed stackable grid">
+						<div class="eleven wide column"  >
+							<h3 class="ui header" ><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">关于孔子的传说大全</a></h3>
+							<p class="m-text-size-small m-text " th:text="|${blog.description}......|">
+								孔子出生的一个很有趣的传说：叫做“龙生虎养鹰打扇”。说是孔子的母亲一天夜间梦见了两条龙，醒来就怀了孔子。因此叫“龙生”。一朝怀胎，十月分娩，谁知孔子生了下来，老爸老妈非但不高兴，反而吓坏了。
+							</p>
+							<div class="ui grid">
+								<div class="row">
+									<div class="eleven wide column">
+										<div class="ui mini horizontal link list">
+											<div class="item">
+												<i class="calendar icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2022-01-01</span>
+											</div>
+											<div class="item">
+												<i class="eye icon"></i><span th:text="${blog.views}">2523</span>
+											</div>
+										</div>
+									</div>
+									<div class="right aligned five wide column">
+										<a href="#" target="_blank" class="ui teal basic label m-padded-mini"  th:text="${blog.type.name}">古诗</a>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="column">
+										<a href="#" th:href="@{/tags/{id}(id=${tag.id})}"  class="ui  basic  left pointing label m-padded-mini m-text-thin" th:classappend="${tag.id==activeTagId} ? 'teal'" th:each="tag : ${blog.tags}" th:text="${tag.name}">古诗</a>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+
+
+						<div class="five wide column">
+							<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
+								<img src="../static/images/w1.jpg" th:src="@{${blog.firstPicture}}" class="ui rounded image" alt=""
+									 style="width: 220px;">
+							</a>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+
+			<div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+				<div class="ui middle aligned two column grid">
+					<div class="column">
+						<a href="#" th:href="@{'/tags/'+${activeTagId}(page=${page.number}-1)}"  th:unless="${page.first}" class="ui mini teal basic button">上一页</a>
+					</div>
+
+					<div class="right aligned column">
+						<a href="#" th:href="@{'/tags/'+${activeTagId}(page=${page.number}+1)}"  th:unless="${page.last}" class="ui mini teal basic button">下一页</a>
+					</div>
+				</div>
+
+			</div>
+			
+			
+		</div>
+		</div>
+		<br>
+		<br>
+		<br>
+
+
+		<!--底层部分-->
+		<footer class="ui inverted vertical segment m-padded-tb-massive">
+			<div class="ui center aligned container">
+				<div class="ui inverted divided  stackable  grid">
+					<div class="three wide column">
+						<div class="ui inverted link list">
+							<div class="item">
+								<img src="../static/images/bottomlogo.jpg" th:src="@{/images/bottomlogo.jpg}" class="ui rounded image" alt="" style="width: 110px">
+							</div>
+
+						</div>
+					</div>
+					<div class="three wide column">
+						<h4 class="ui inverted  m-text-thin  m-text-spaced">最新文章</h4>
+						<div id="newblog-container">
+							<div class="ui inverted link list" th:fragment="newblogList">
+								<a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="item" th:each="blog : ${newblogs}" th:text="${blog.title}">国学的好处</a>
+
+							</div>
+						</div>
+
+					</div>
+					<div class="three wide column">
+						<h4 class="ui inverted m-text-thin  m-text-spaced">联系我们</h4>
+						<div class="ui inverted link list">
+							<a href="#" class="item">地址：西安市雁塔区西安文理学院</a>
+							<a href="#" class="item"></a>
+							<a href="#" class="item">电话：028-6015896</a>
+						</div>
+					</div>
+					<div class="seven wide column">
+						<h4 class="ui inverted m-text-thin  m-text-spaced">网站分享</h4>
+						<br>
+						<button class="ui circular facebook icon button">
+							<i class="facebook icon"></i>
+						</button>
+						<button class="ui circular twitter icon button">
+							<i class="qq icon"></i>
+						</button>
+						<button class="ui circular linkedin icon button">
+							<i class="wechat icon"></i>
+						</button>
+						<button class="ui circular google plus icon button">
+							<i class="weibo plus icon"></i>
+						</button>
+					</div>
+				</div>
+				<div class="ui inverted section divider">
+					<br><br>
+					<p class="m-text-thin m-opacity-mini m-text-spaced m-text-size"> Copyright © 2022-至今 Designed by 王志磊
+					</p>
+				</div>
+			</div>
+
+		</footer>
+
+		<!--		<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>-->
+		<!--		<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>-->
+		<script src="../static/js/jquery.min.js" th:src="@{/js/jquery.min.js}"></script>
+		<script src="../static/js/semantic.min.js" th:src="@{/js/semantic.min.js}"></script>
+
+		<script>
+			$('.menu.toggle').click(function() {
+				$('.m-item').toggleClass('m-mobile-hide');
+			});
+
+			$('#newblog-container').load(/*[[@{/footer/newblog}]]*/"/footer/newblog");
+			
+			
+		</script>
+		<script>
+			// $('.menu.toggle').click(function() {
+			// 	$('.m-item').toggleClass('m-mobile-hide');
+			// });
+			// 头像下拉菜单
+			$('.ui.dropdown').dropdown({
+						on:'hover'
+					}
+			);
+		</script>
+	</body>
+</html>

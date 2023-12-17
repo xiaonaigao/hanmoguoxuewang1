@@ -1,0 +1,13 @@
+#thymeleaf的模板版本
+spring:
+  thymeleaf:
+    mode: HTML
+#    当前使用的配置
+  profiles:
+    active: dev
+  messages:
+    basename: i18n/messages
+
+comment.avatar: /images/touxiang4.jpg
+message.avatar: /images/touxiang4.jpg
+
